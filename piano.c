@@ -82,7 +82,7 @@ triangle(double theta)
 }
 
 static void
-beep(int freq, unsigned int beats, float amplitude_divisor)
+beep(double freq, unsigned int beats, float amplitude_divisor)
 {
 	assert(beats <= MAXBEATS);
 	if (beats == 0) beats = 1;
@@ -98,7 +98,7 @@ beep(int freq, unsigned int beats, float amplitude_divisor)
 			amp *= (float)(nsamps - i) / ease_width;
 
 		sndbuf[i] += wave_func(theta) * amp;
-		theta += TWOPI * ((float)freq) / ((float)snd_format.rate);
+		theta += TWOPI * freq / ((float)snd_format.rate);
 		theta = fmod(theta, TWOPI);
 	}
 }
@@ -133,7 +133,7 @@ setterm(void)
 	atexit(resetterm);
 }
 
-static int
+static double
 getfreq(char ch)
 {
 	const char *chars = piano_layout ? piano_chars : chromatic_chars;
@@ -206,7 +206,7 @@ main(int argc, char **argv)
 	unsigned int nbeats = 0;
 	ssize_t nread;
 	bool building_chord = false;
-	int chord[CHORD_SIZE] = {0};
+	double chord[CHORD_SIZE] = {0};
 	size_t chordpos = 0;
 	int octave = 0;
 	while ((nread = read(STDIN_FILENO, &ch, sizeof(ch))) != 0) {
@@ -215,7 +215,7 @@ main(int argc, char **argv)
 		if (is_tty && ch == oldattr.c_cc[VEOF])
 			break;
 
-		int freq;
+		double freq;
 		if (ch == '-') {
 			octave -= 1;
 		} else if (ch == '+') {
