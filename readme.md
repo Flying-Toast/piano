@@ -32,8 +32,8 @@ DESCRIPTION
 
      -t timbre
              The timbre (sound quality) to use. Must be one of
-             "sawtooth", "sine", or "triangle". The default is "trumpet",
-             or sin(x)^18.7.
+             "sawtooth", "sine", "triangle", or "dialtone". The default
+             is "trumpet", or sin(x)^18.7.
 
      -p      Use a piano-like layout instead of the default ascending
              QWERTY layout.  Keys in the middle keyboard row act as the

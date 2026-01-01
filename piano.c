@@ -81,6 +81,14 @@ triangle(double theta)
 	return fabs(fmod(theta, 4) - 2) - 1;
 }
 
+static double
+dialtone(double theta)
+{
+	double s1 = sin(theta);
+	double s2 = sin(theta * (440.0 / 350.0));
+	return (s1 + s2) / 2;
+}
+
 static void
 beep(double freq, unsigned int beats, float amplitude_divisor)
 {
@@ -99,7 +107,6 @@ beep(double freq, unsigned int beats, float amplitude_divisor)
 
 		sndbuf[i] += wave_func(theta) * amp;
 		theta += TWOPI * freq / ((float)snd_format.rate);
-		theta = fmod(theta, TWOPI);
 	}
 }
 
@@ -181,6 +188,8 @@ parseargs(int argc, char **argv)
 				wave_func = sin;
 			else if (strcmp(optarg, "triangle") == 0)
 				wave_func = triangle;
+			else if (strcmp(optarg, "dialtone") == 0)
+				wave_func = dialtone;
 			else
 				errx(1, "invalid timbre");
 			break;
