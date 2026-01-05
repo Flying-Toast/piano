@@ -1,0 +1,58 @@
+PIANO(6)                         Games Manual                         PIANO(6)
+
+NAME
+     piano – musical keyboard
+
+SYNOPSIS
+     piano [-p] [-a amplitude] [-b base-freq] [-d duration] [-t timbre]
+
+DESCRIPTION
+     The piano program plays musical notes as you press keys on the keyboard.
+     Pressing a key produces a note for one beat. "q" produces the lowest note
+     and "m" produces the highest note. Notes between "q" and "m" are each a
+     half step apart, ordered as they appear on a QWERTY keyboard. The space
+     (" ") character produces a rest (silence). Entering digits before a note
+     or rest causes the note or rest to be that many beats long. Entering some
+     number of "+" or "-" before a note brings the note up or down that many
+     octaves. Wrapping multiple notes in backticks (``) plays the enclosed
+     notes simultaneously.
+
+     The options to piano are as follows:
+
+     -a amplitude
+             Volume percentage. Must be a value between 0 and 100.
+
+     -b base-freq
+             Frequency of the lowest note ("q"). Each subsequent note is a
+             half step higher than the last.
+
+     -d duration
+             The duration (in milliseconds) of a beat.
+
+     -p      Use a piano-like layout instead of the default ascending QWERTY
+             layout.  Keys in the middle keyboard row act as the white keys on
+             a piano and keys in the top row act as the black keys. Some keys
+             on the bottom row have values but they're not standard.
+
+     -t timbre
+             The timbre (sound quality) to use. Must be one of ‘dialtone’,
+             ‘sawtooth’, ‘sine’, ‘triangle’, or ‘trumpet’ (the default).
+
+EXAMPLES
+     Tetris theme:
+
+           $ echo 'z ghk hgd dhz khg ghk z h d 2d' | piano -d 150
+
+     Megalovania:
+
+           $ echo 'uul f2 d s p upsuul f2 d s p ups' | piano -t sawtooth
+
+HISTORY
+     Originally written on a Dell All-in-One running OpenBSD left in the
+     authors' dorm common room. Lacking Wi-Fi drivers, piano was born out of a
+     need for offline entertainment.  piano was later ported from OpenBSD's
+     sndio(7) library to the cross-platform ‘libao’.
+
+AUTHORS
+     Simon Schwartz <srs266@case.edu>
+     Benjamin Poulin <bwp18@case.edu>

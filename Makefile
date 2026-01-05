@@ -1,12 +1,7 @@
-CFLAGS=-Wall -Wextra -Wpedantic
+CFLAGS = -Wall -Wextra -Wpedantic -std=c99
 
-piano: piano.o
-	cc $(CFLAGS) -o piano piano.o -lm -lao
+piano: piano.c
+	cc $(CFLAGS) -o piano piano.c -lm -lao
 
-install: piano
-	install -o root -g root piano /usr/bin/piano
-
-.PHONY: clean
-clean:
-	rm -f piano
-	rm -f *.o
+README: piano.6
+	man -l piano.6 | sed $$'s/.\b//g' >README
