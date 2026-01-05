@@ -1,0 +1,76 @@
+.Dd January 4, 2026
+.Dt PIANO 6
+.Os
+.Sh NAME
+.Nm piano
+.Nd musical keyboard
+.Sh SYNOPSIS
+.Nm
+.Op Fl p
+.Op Fl a Ar amplitude
+.Op Fl b Ar base-freq
+.Op Fl d Ar duration
+.Op Fl t Ar timbre
+.Sh DESCRIPTION
+The
+.Nm
+program plays musical notes as you press keys on the keyboard. Pressing a key
+produces a note for one beat. "q" produces the lowest note and "m" produces the
+highest note. Notes between "q" and "m" are each a half step apart, ordered as
+they appear on a QWERTY keyboard. The space (" ") character produces a rest
+(silence). Entering digits before a note or rest causes the note or rest to be
+that many beats long. Entering some number of "+" or "-" before a note brings
+the note up or down that many octaves. Wrapping multiple notes in backticks
+(``) plays the enclosed notes simultaneously.
+.Pp
+The options to
+.Nm
+are as follows:
+.Bl -tag -width Ds
+.It Fl a Ar amplitude
+Volume percentage. Must be a value between 0 and 100.
+.It Fl b Ar base-freq
+Frequency of the lowest note ("q"). Each subsequent note is a half step higher
+than the last.
+.It Fl d Ar duration
+The duration (in milliseconds) of a beat.
+.It Fl p
+Use a piano-like layout instead of the default ascending QWERTY layout.  Keys
+in the middle keyboard row act as the white keys on a piano and keys in the
+top row act as the black keys. Some keys on the bottom row have values but
+they're not standard.
+.It Fl t Ar timbre
+The timbre (sound quality) to use. Must be one of
+.Ql dialtone ,
+.Ql sawtooth ,
+.Ql sine ,
+.Ql triangle ,
+or
+.Ql trumpet
+(the default).
+.El
+.Sh EXAMPLES
+.Pp
+Tetris theme:
+.Bd -literal -offset indent
+$ echo 'z ghk hgd dhz khg ghk z h d 2d' | piano -d 150
+.Ed
+.Pp
+Megalovania:
+.Bd -literal -offset indent
+$ echo 'uul f2 d s p upsuul f2 d s p ups' | piano -t sawtooth
+.Ed
+.Sh HISTORY
+.Pp
+Originally written on a Dell All-in-One running OpenBSD left in the authors'
+dorm common room. Lacking Wi-Fi drivers,
+.Nm
+was born out of a need for offline entertainment.
+.Nm
+was later ported from OpenBSD's
+.Xr sndio 7
+library to the cross-platform
+.Ql libao .
+.Sh AUTHORS
+.An Simon Schwartz Aq Mt srs266@case.edu
+.An Benjamin Poulin Aq Mt bwp18@case.edu
